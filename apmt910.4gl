@@ -3788,57 +3788,57 @@ DEFINE  l_itemno_b  LIKE pnb_file.pnb041a   #06100389_M001_1 add
                  NEXT FIELD pnbud03
               END IF
            END IF
-              IF g_pnb[l_ac].pnbud02 != g_pnb[l_ac].pnbud03 THEN
-                 SELECT pmm09,pmm21,pmm43 INTO l_pmm09,l_pmm21,l_pmm43
-                   FROM pmm_file
-                  WHERE pmm01 = g_pna.pna01
+           IF g_pnb[l_ac].pnbud02 != g_pnb[l_ac].pnbud03 THEN
+              SELECT pmm09,pmm21,pmm43 INTO l_pmm09,l_pmm21,l_pmm43
+                FROM pmm_file
+               WHERE pmm01 = g_pna.pna01
 
-                 IF cl_null(g_pna.pna08b) THEN
-                    LET l_pna08 = g_pna.pna08
-                 ELSE
-                    LET l_pna08 = g_pna.pna08b
-                 END IF
-
-                 IF cl_null(g_pnb[l_ac].pnb86a) THEN
-                    LET g_pnb86 = g_pnb[l_ac].pnb86b
-                 ELSE
-                    LET g_pnb86 = g_pnb[l_ac].pnb86a
-                 END IF
-
-                 IF cl_null(g_pna.pna09b) THEN
-                    LET g_term = g_pna.pna09
-                 ELSE
-                    LET g_term = g_pna.pna09b
-                 END IF
-
-                 IF cl_null(g_pna.pna10b) THEN
-                    LET g_price = g_pna.pna10
-                 ELSE
-                    LET g_price = g_pna.pna10b
-                 END IF
-
-                 IF cl_null(g_pnb[l_ac].pnb87b)  THEN
-                    LET l_pnb87 = g_pnb[l_ac].pnb87a
-                 ELSE
-                    LET l_pnb87 = g_pnb[l_ac].pnb87b
-                 END IF
-                 IF cl_null(l_pnb87) THEN LET l_pnb87 = 0 END IF
-
-                 CALL t910_gettask(g_pna.pna01,g_pnb[l_ac].pnb03) RETURNING l_task,l_type
-
-                 IF cl_null(g_pnb[l_ac].pnbud03) THEN
-                    LET l_itemno_a = g_pnb[l_ac].pnb04a         #Item no.
-                 ELSE LET l_itemno_a = g_pnb[l_ac].pnbud03      #MGD color no.
-                 END IF
-
-                 CALL s_defprice_new(l_itemno_a,l_pmm09,l_pna08,g_pna.pna04,
-                                     l_pnb87,l_task,l_pmm21,l_pmm43,l_type,g_pnb86,'',g_term,g_price,g_plant,' ')
-                           RETURNING g_pnb[l_ac].pnb31a,g_pnb[l_ac].pnb32a,g_pmn73,g_pmn74
+              IF cl_null(g_pna.pna08b) THEN
+                 LET l_pna08 = g_pna.pna08
+              ELSE
+                 LET l_pna08 = g_pna.pna08b
               END IF
+
+              IF cl_null(g_pnb[l_ac].pnb86a) THEN
+                 LET g_pnb86 = g_pnb[l_ac].pnb86b
+              ELSE
+                 LET g_pnb86 = g_pnb[l_ac].pnb86a
+              END IF
+
+              IF cl_null(g_pna.pna09b) THEN
+                 LET g_term = g_pna.pna09
+              ELSE
+                 LET g_term = g_pna.pna09b
+              END IF
+
+              IF cl_null(g_pna.pna10b) THEN
+                 LET g_price = g_pna.pna10
+              ELSE
+                 LET g_price = g_pna.pna10b
+              END IF
+
+              IF cl_null(g_pnb[l_ac].pnb87b)  THEN
+                 LET l_pnb87 = g_pnb[l_ac].pnb87a
+              ELSE
+                 LET l_pnb87 = g_pnb[l_ac].pnb87b
+              END IF
+              IF cl_null(l_pnb87) THEN LET l_pnb87 = 0 END IF
+
+              CALL t910_gettask(g_pna.pna01,g_pnb[l_ac].pnb03) RETURNING l_task,l_type
+
+              IF cl_null(g_pnb[l_ac].pnbud03) THEN
+                 LET l_itemno_a = g_pnb[l_ac].pnb04a         #Item no.
+              ELSE LET l_itemno_a = g_pnb[l_ac].pnbud03      #MGD color no.
+              END IF
+
+              CALL s_defprice_new(l_itemno_a,l_pmm09,l_pna08,g_pna.pna04,
+                                  l_pnb87,l_task,l_pmm21,l_pmm43,l_type,g_pnb86,'',g_term,g_price,g_plant,' ')
+                        RETURNING g_pnb[l_ac].pnb31a,g_pnb[l_ac].pnb32a,g_pmn73,g_pmn74
+           END IF
  
-            CALL t910_set_no_entry_b()
-            CALL t910_set_no_entry_b1() #MOD-5A0416 add
-            CALL t910_check_price() #MOD-D10206 add
+           CALL t910_set_no_entry_b()
+           CALL t910_set_no_entry_b1()
+           CALL t910_check_price()
         #06100389_M001_1 add --end--
  
         #---> 輸入數量後,是否大於未交量
