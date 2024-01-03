@@ -14144,7 +14144,7 @@ DEFINE l_rvu00       LIKE rvu_file.rvu00   #MOD-G70119 add
 #FUN-990025 ------------------------add end-----------------------------------------
               #240103 add by DSC.ANHDUY ------begin------- 
                SELECT pmnud02,ima02,ima021 
-                 INTO g_apb[g_cnt].pmnud02,g_apb[g_cnt].ima02a,g_apb[g_cnt].ima021a
+                 INTO g_apb[l_ac].pmnud02,g_apb[l_ac].ima02a,g_apb[l_ac].ima021a
                  FROM pmn_file,ima_file
                 WHERE pmnud02 = ima01
                   AND pmn01 = g_apb[l_ac].apb06
