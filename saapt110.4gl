@@ -14142,6 +14142,14 @@ DEFINE l_rvu00       LIKE rvu_file.rvu00   #MOD-G70119 add
               PREPARE sel_gen02_pre1 FROM l_sql
               EXECUTE sel_gen02_pre1 INTO g_apb[l_ac].b32
 #FUN-990025 ------------------------add end-----------------------------------------
+              #240103 add by DSC.ANHDUY ------begin------- 
+               SELECT pmnud02,ima02,ima021 
+                 INTO g_apb[g_cnt].pmnud02,g_apb[g_cnt].ima02a,g_apb[g_cnt].ima021a
+                 FROM pmn_file,ima_file
+                WHERE pmnud02 = ima01
+                  AND pmn01 = g_apb[g_cnt].apb06
+                  AND pmn02 = g_apb[g_cnt].apb07
+              #240103 add by DSC.ANHDUY -------end------- 
               #FUN-D70077--add--str--
               #FUN-E20008--mark--begin
               #IF g_aptype='13' AND g_aza.aza26='2' AND g_apb[l_ac].apb34='Y' THEN
@@ -20230,6 +20238,20 @@ FUNCTION t110_apb22_11(p_cmd)
       END WHILE
      END IF  #MOD-8C0020
    END IF
+   #240103 add by DSC.ANHDUY ------begin-------
+   IF NOT cl_null(l_rvv36) AND NOT cl_null(l_rvv37) THEN
+      SELECT pmnud02,ima02,ima021 
+        INTO g_apb[g_cnt].pmnud02,g_apb[g_cnt].ima02a,g_apb[g_cnt].ima021a
+        FROM pmn_file,ima_file
+       WHERE pmnud02 = ima01
+         AND pmn01 = l_rvv36
+         AND pmn02 = l_rvv37
+
+       DISPLAY BY NAME g_apb[l_ac].pmnud02
+       DISPLAY BY NAME g_apb[l_ac].ima02a
+       DISPLAY BY NAME g_apb[l_ac].ima021a
+   END IF
+   #240103 add by DSC.ANHDUY ------end-------
  
    LET g_apb04 = l_rvv04
    LET g_apb05 = l_rvv05
