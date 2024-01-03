@@ -14147,8 +14147,8 @@ DEFINE l_rvu00       LIKE rvu_file.rvu00   #MOD-G70119 add
                  INTO g_apb[g_cnt].pmnud02,g_apb[g_cnt].ima02a,g_apb[g_cnt].ima021a
                  FROM pmn_file,ima_file
                 WHERE pmnud02 = ima01
-                  AND pmn01 = g_apb[g_cnt].apb06
-                  AND pmn02 = g_apb[g_cnt].apb07
+                  AND pmn01 = g_apb[l_ac].apb06
+                  AND pmn02 = g_apb[l_ac].apb07
               #240103 add by DSC.ANHDUY -------end------- 
               #FUN-D70077--add--str--
               #FUN-E20008--mark--begin
@@ -20241,15 +20241,11 @@ FUNCTION t110_apb22_11(p_cmd)
    #240103 add by DSC.ANHDUY ------begin-------
    IF NOT cl_null(l_rvv36) AND NOT cl_null(l_rvv37) THEN
       SELECT pmnud02,ima02,ima021 
-        INTO g_apb[g_cnt].pmnud02,g_apb[g_cnt].ima02a,g_apb[g_cnt].ima021a
+        INTO g_apb[l_ac].pmnud02,g_apb[l_ac].ima02a,g_apb[l_ac].ima021a
         FROM pmn_file,ima_file
        WHERE pmnud02 = ima01
          AND pmn01 = l_rvv36
          AND pmn02 = l_rvv37
-
-       DISPLAY BY NAME g_apb[l_ac].pmnud02
-       DISPLAY BY NAME g_apb[l_ac].ima02a
-       DISPLAY BY NAME g_apb[l_ac].ima021a
    END IF
    #240103 add by DSC.ANHDUY ------end-------
  
